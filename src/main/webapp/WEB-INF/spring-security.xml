@@ -7,27 +7,18 @@
           http://www.springframework.org/schema/security
           http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
-        <security:intercept-url pattern="/api/**" access="hasRole('ROLE_ADMIN')"/>
-        <security:csrf disabled="true"/>
-        <security:custom-filter before="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
+    <security:http>
+        <!-- pattern: 要拦截的资源-->
+        <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
+        <security:form-login/>
     </security:http>
 
-    <bean id="jwtAuthenticationFilter" class="com.bear.springmvc5test.security.JwtAuthenticationFilter">
-        <constructor-arg type="java.lang.String">
-            <value>/**</value>
-        </constructor-arg>
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="authenticationSuccessHandler" ref="jwtAuthenticationSuccessHandler"/>
-    </bean>
-
-    <bean id="restAuthenticationEntryPoint" class="com.bear.springmvc5test.security.RestAuthenticationEntryPoint"/>
-    <bean id="jwtAuthenticationSuccessHandler"
-          class="com.bear.springmvc5test.security.JwtAuthenticationSuccessHandler"/>
-    <bean id="jwtAuthenticationProvider" class="com.bear.springmvc5test.security.JwtAuthenticationProvider"/>
-
-    <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider ref="jwtAuthenticationProvider"/>
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="admin" password="{noop}admin" authorities="ROLE_USER"/>
+            </security:user-service>
+        </security:authentication-provider>
     </security:authentication-manager>
 
 </beans>
