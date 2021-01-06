@@ -9,7 +9,7 @@
 
     <security:http>
         <!-- pattern: 要拦截的资源-->
-        <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
+        <security:intercept-url pattern="/api/**" access="isFullyAuthenticated()"/>
         <security:form-login/>
     </security:http>
 
