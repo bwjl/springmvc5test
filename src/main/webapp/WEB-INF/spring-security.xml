@@ -9,9 +9,31 @@
 
     <security:http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
         <security:intercept-url pattern="/api/**" access="hasRole('ROLE_ADMIN')"/>
+        <security:cors configuration-source-ref="corsSource"/>
         <security:csrf disabled="true"/>
         <security:custom-filter before="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
     </security:http>
+
+    <bean id="corsSource" class="com.bear.springmvc5test.security.MyUrlBasedCorsConfigurationSource">
+        <property name="corsConfigurations">
+            <map>
+                <entry key="/api/**">
+                    <bean class="org.springframework.web.cors.CorsConfiguration">
+                        <property name="allowCredentials" value="true"/>
+                        <property name="allowedMethods">
+                            <list>
+                                <value>POST</value>
+                                <value>GET</value>
+                                <value>HEAD</value>
+                            </list>
+                        </property>
+                        <property name="allowedHeaders" value="*"/>
+                        <property name="allowedOrigins" value="*"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
 
     <bean id="jwtAuthenticationFilter" class="com.bear.springmvc5test.security.JwtAuthenticationFilter">
         <constructor-arg type="java.lang.String">
