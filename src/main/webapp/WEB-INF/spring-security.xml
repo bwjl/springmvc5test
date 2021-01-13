@@ -7,6 +7,7 @@
           http://www.springframework.org/schema/security
           http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <security:http pattern="/common/**" security="none"/>
     <security:http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
         <security:intercept-url pattern="/api/**" access="hasRole('ROLE_ADMIN')"/>
         <security:cors configuration-source-ref="corsSource"/>
