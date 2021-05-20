@@ -19,13 +19,18 @@ import sun.lwawt.macosx.CSystemTray;
 @RequestMapping("api")
 public class IndexController {
 
-    @Autowired
-    private MyUrlBasedCorsConfigurationSource myUrlBasedCorsConfigurationSource;
+//    @Autowired
+//    private MyUrlBasedCorsConfigurationSource myUrlBasedCorsConfigurationSource;
 
     @GetMapping("index")
     public void index() {
         System.out.println("Jwt + Spring Security5");
-        System.out.println(myUrlBasedCorsConfigurationSource.getCorsConfigurations());
+        //System.out.println(myUrlBasedCorsConfigurationSource.getCorsConfigurations());
+    }
+
+    @GetMapping("permitAll")
+    public String permitAll() {
+        return "permitAllxxx";
     }
 
 }

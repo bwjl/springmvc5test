@@ -18,11 +18,9 @@
         <property name="maxUploadSize" value="#{5*1024*1024}"/> <!--   SpEl spring表达   -->
     </bean>
 
-    <context:component-scan base-package="com.bear.springmvc5test.controller.api"/>
-    <context:component-scan base-package="com.bear.springmvc5test.controller.common"/>
-    <context:component-scan base-package="com.bear.springmvc5test.config"/>
+    <mvc:annotation-driven/>
 
-    <!--    <context:property-placeholder ignore-unresolvable="true"-->
-    <!--                                  location="classpath:jdbc.properties,classpath:application.properties,classpath:redis.properties"/>-->
+    <context:component-scan base-package="com.bear.springmvc5test.controller"/>
+    <context:component-scan base-package="com.bear.springmvc5test.config"/>
 
 </beans>

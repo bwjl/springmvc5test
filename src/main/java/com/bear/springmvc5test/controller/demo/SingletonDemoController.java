@@ -1,6 +1,7 @@
-package com.bear.springmvc5test.controller.common;
+package com.bear.springmvc5test.controller.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,20 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-//@Scope(value="prototype")
-@RequestMapping("singletonController")
+@Scope("prototype")
+@RequestMapping("demo")
 public class SingletonDemoController {
 
     private int num = 0;
 
-    @Autowired
-    private SingletonDemoController singletonDemoController;
+//    @Autowired
+//    private SingletonDemoController singletonDemoController;
 
-    @GetMapping("index")
+    @GetMapping("singletonController/index")
     public void index() {
         num++;
-        System.out.println(singletonDemoController);
+        //System.out.println(singletonDemoController);
         //第二次访问该方法 num 为2
         System.out.println(num);
+        System.out.println(this);
     }
 }
